@@ -9,7 +9,6 @@ except ImportError:
 
 if __name__ == "__main__":
     import sys
-    import glob
     import numpy
 
     # Publish the library to PyPI.
@@ -28,7 +27,8 @@ if __name__ == "__main__":
     ]
 
     # List all the required source files.
-    sources = [os.path.join("an", "src", fn) for fn in (
+    AN_PATH = os.environ.get("ASTROMETRY_SRC", "an")
+    sources = [os.path.join(AN_PATH, "util", fn) for fn in (
         "main.c",
         "an-endian.c",
         "bl.c",
@@ -52,7 +52,7 @@ if __name__ == "__main__":
         "dobjects.c",
         "tic.c",
         "mathutil.c",
-    )] + [os.path.join("an", "src", "qfits", fn) for fn in (
+    )] + [os.path.join(AN_PATH, "qfits-an", fn) for fn in (
         "anqfits.c",
         "md5.c",
         "qfits_byteswap.c",
@@ -69,6 +69,10 @@ if __name__ == "__main__":
         "qfits_time.c",
         "qfits_tools.c",
     )]
+    if not all(map(os.path.exists, sources)):
+        raise RuntimeError("Please set the environment variable "
+                           "ASTROMETRY_SRC to the location of your "
+                           "astrometry.net installation")
 
     # Set up the extension.
     ext_fn = os.path.join("simplexy", "_simplexy")

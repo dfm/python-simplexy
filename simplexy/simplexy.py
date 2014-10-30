@@ -13,6 +13,7 @@ _dtype = np.dtype([("x", np.float32), ("y", np.float32),
                    ("flux", np.float32), ("bkg", np.float32)])
 
 
-def simplexy(img):
-    r = run_simplexy(np.ascontiguousarray(img.T, dtype=np.float32)).T
+def simplexy(img, **kwargs):
+    r = run_simplexy(np.ascontiguousarray(img.T, dtype=np.float32),
+                     **kwargs).T
     return np.array(zip(*r), dtype=_dtype)

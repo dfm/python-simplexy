@@ -1,3 +1,6 @@
 an
 *.png
 simplexy/_simplexy.c
+build
+dist
+*.egg-info

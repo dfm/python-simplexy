@@ -20,16 +20,11 @@ if __name__ == "__main__":
     libraries = []
     if os.name == "posix":
         libraries.append("m")
-    include_dirs = [
-        os.path.join("an", "include"),
-        os.path.join("an", "include", "astrometry"),
-        numpy.get_include(),
-    ]
 
     # List all the required source files.
     AN_PATH = os.environ.get("ASTROMETRY_SRC", "an")
     sources = [os.path.join(AN_PATH, "util", fn) for fn in (
-        "main.c",
+        # "main.c",
         "an-endian.c",
         "bl.c",
         "ctmf.c",
@@ -73,6 +68,11 @@ if __name__ == "__main__":
         raise RuntimeError("Please set the environment variable "
                            "ASTROMETRY_SRC to the location of your "
                            "astrometry.net installation")
+    include_dirs = [
+        os.path.join(AN_PATH, "include"),
+        os.path.join(AN_PATH, "include", "astrometry"),
+        numpy.get_include(),
+    ]
 
     # Set up the extension.
     ext_fn = os.path.join("simplexy", "_simplexy")

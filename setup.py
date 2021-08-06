@@ -41,7 +41,7 @@ if __name__ == "__main__":
         "dselip.c",
         "dsigma.c",
         "dsmooth.c",
-        "radix.c",
+        #"radix.c",
         "dfind.c",
         "dmedsmooth.c",
         "dobjects.c",
@@ -86,7 +86,7 @@ if __name__ == "__main__":
     extensions = cythonize([
         Extension("simplexy._simplexy", sources=sources + [ext_fn],
                   include_dirs=include_dirs)
-    ])
+    ], language_level = "3")
 
     # Hackishly inject a constant into builtins to enable importing of the
     # package before the library is built.
@@ -110,7 +110,7 @@ if __name__ == "__main__":
         long_description=open("README.rst").read(),
         package_data={"": ["README.rst", "LICENSE",
                            os.path.join("simplexy", "_simplexy.c"), ]},
-        include_package_data=True,
+        #include_package_data=True,
         classifiers=[
             # "Development Status :: 5 - Production/Stable",
             "Intended Audience :: Developers",
